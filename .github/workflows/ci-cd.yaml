@@ -36,4 +36,11 @@ jobs:
             cd $GITHUB_WORKSPACE 
             rm ./current
             ln -s releases/$VERSION ./current
+
+      - name: Magento steps
+        run: |
+          php bin/magento deploy:mode:set production --skip-compilation
+          php bin/magento setup:upgrade
+          php bin/magento setup:di:compile
+          php bin/magento setup:static-content:deploy -j \$(lscpu -b -eCPU | tail -n +2 | wc -l) pt_BR en_US
       
