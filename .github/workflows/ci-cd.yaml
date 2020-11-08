@@ -18,3 +18,4 @@ jobs:
     steps:
       - name: Get current date
         run: echo "::set-env name=VERSION::$(date +%Y%m%d%H%M')"
+
