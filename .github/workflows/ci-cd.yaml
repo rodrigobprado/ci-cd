@@ -30,16 +30,4 @@ jobs:
         run: |
             mkdir -p releases/$VERSION
             cd releases/$VERSION
-            
-      - name: Download source code
-      - uses: actions/checkout@v2
-        with:
-          ssh-key: ' ${{ secrets.SSH_KEY }}'
-                
-      - name: Change release
-        shell: bash        
-        run: |
-            cd $GITHUB_WORKSPACE 
-            rm ./current
-            ln -s releases/$VERSION ./current
-            
+            pwd
