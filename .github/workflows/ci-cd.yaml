@@ -11,18 +11,11 @@ on:
       - master
       - develop
 
-  # Also trigger on page_build, as well as release created events
-  page_build:
-  release:
-    types: # This configuration does not affect the page_build event above
-      - created
-
 jobs:
   deploy:
     runs-on: [self-hosted, linux]
     steps:
       - name: Get current date
-        id: date
         run: echo "::set-env name=VERSION::$(date +%Y%m%d%H%M')"
 
       - name: Create release
