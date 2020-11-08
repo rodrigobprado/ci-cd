@@ -17,16 +17,16 @@ on:
     types: # This configuration does not affect the page_build event above
       - created
 
-runs-on: [self-hosted, linux]
-
 jobs:
   deploy:
+    runs-on: [self-hosted, linux]
     steps:
       - name: Get current date
         id: date
         run: echo "::set-env name=VERSION::$(date +%Y%m%d%H%M')"
 
       - name: Create release
+        shell: bash
         run: |
             mkdir -p releases/$VERSION
             cd releases/$VERSION
@@ -37,6 +37,7 @@ jobs:
           ssh-key: ' ${{ secrets.SSH_KEY }}'
                 
       - name: Change release
+        shell: bash        
         run: |
             cd $GITHUB_WORKSPACE 
             rm ./current
