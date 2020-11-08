@@ -27,3 +27,9 @@ jobs:
             mkdir -p releases/$VERSION
             cd releases/$VERSION
             pwd
+            
+      - name: Download source code
+      - uses: actions/checkout@v2
+        with: 
+          ssh-key: ' ${{ secrets.SSH_KEY }}'
+      
