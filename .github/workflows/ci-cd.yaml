@@ -21,3 +21,9 @@ jobs:
       - name: Get current date
         run: echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
 
+      - name: Create release
+        shell: bash
+        run: |
+            mkdir -p releases/$VERSION
+            cd releases/$VERSION
+            pwd
