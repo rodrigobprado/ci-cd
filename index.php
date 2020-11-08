@@ -1,3 +1,4 @@
 <?php
+  echo "staging";
   phpinfo();
 ?>
