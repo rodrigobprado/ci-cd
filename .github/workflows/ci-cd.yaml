@@ -1,0 +1,56 @@
+name: CI-CD test
+
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+
+  push:
+    branches:
+      - master
+      - develop
+
+  # Also trigger on page_build, as well as release created events
+  page_build:
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
+
+if: contains( github.ref, 'master')
+  steps:
+    - run: echo "Deploy to production server"
+    env:
+      SERVER: production
+
+if: contains( github.ref, 'develop')
+    steps:
+    - run: echo "Deploy to staging server"
+    env:
+      SERVER: staging
+
+runs-on: [self-hosted, linux]
+
+jobs:
+  deploy:
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-env name=VERSION::$(date +%Y%m%d%H%M')"
+
+      - name: Create release
+        run: |
+            mkdir -p releases/$VERSION
+            cd releases/$VERSION
+            
+      - name: Download source code
+      - uses: actions/checkout@v2
+            with:
+                ssh-key: ' ${{ secrets.SSH_KEY }}'
+                
+      - name: Change release
+        run: |
+            cd $GITHUB_WORKSPACE 
+            rm ./current
+            ln -s releases/$VERSION ./current
+            
