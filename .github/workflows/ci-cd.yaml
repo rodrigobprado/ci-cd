@@ -17,18 +17,6 @@ on:
     types: # This configuration does not affect the page_build event above
       - created
 
-if: contains( github.ref, 'master')
-  steps:
-    - run: echo "Deploy to production server"
-    env:
-      SERVER: production
-
-if: contains( github.ref, 'develop')
-    steps:
-    - run: echo "Deploy to staging server"
-    env:
-      SERVER: staging
-
 runs-on: [self-hosted, linux]
 
 jobs:
