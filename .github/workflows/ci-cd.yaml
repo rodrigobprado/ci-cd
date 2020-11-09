@@ -31,6 +31,4 @@ jobs:
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
 
       - name: Change Release - create symbolic link
-        shell: bash
-        run: bash -x /home/deploy/deploy.sh
-        
+        run: bash -x /home/deploy/deploy.sh       
