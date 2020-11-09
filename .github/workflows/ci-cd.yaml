@@ -39,7 +39,7 @@ jobs:
       - name: Change Release - Remove current
         shell: bash
         run: |          
-          rm /wwwroot/ci-cd/current
+          sudo rm -Rf /wwwroot/ci-cd/current
 
       - name: Change Release - create symbolic link
         shell: bash
