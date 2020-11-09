@@ -30,11 +30,6 @@ jobs:
             mkdir -p /wwwroot/ci-cd/releases/
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
 
-      - name: Change Release - Remove current
-        shell: bash
-        run: rm -Rf /wwwroot/ci-cd/current
-
       - name: Change Release - create symbolic link
         shell: bash
-        run: |
-            echo ln -s /wwwroot/ci-cd/releases/${VERSION} /wwwroot/ci-cd/current 
+        run: ln -s /wwwroot/ci-cd/releases/${VERSION} /wwwroot/ci-cd/current 
