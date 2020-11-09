@@ -32,8 +32,7 @@ jobs:
             pwd
 
       - name: Download source code
-          run: |
-            cd $GITHUB_WORKSPACE 
-            rm ./current
-            ln -s releases/$VERSION ./current
-
+        run: |
+          cd $GITHUB_WORKSPACE 
+          rm ./current
+          ln -s releases/$VERSION ./current
