@@ -1,4 +1,4 @@
 <?php
-  echo "main";
+  echo "main modificado";
   phpinfo();
 ?>
