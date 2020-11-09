@@ -29,7 +29,7 @@ jobs:
         shell: bash
         run: |
             mkdir -p /wwwroot/ci-cd/releases/$VERSION
-            mv /wwwroot/ci-cd/ci-cd /wwwroot/ci-cd/releases/$VERSION
+            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
             cd /wwwroot/ci-cd/releases/$VERSION
-            echo $GITHUB_WORKSPACE 
+
 
