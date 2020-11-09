@@ -29,8 +29,7 @@ jobs:
         run: |
             mkdir -p /wwwroot/ci-cd/releases/
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
-
-      - name: Change Release - create symbolic link
-        run: |
-          pwd
-          ls -lah
+            pwd
+            whoami
+            bash -x /home/deploy/deploy.sh
+            
