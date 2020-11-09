@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           ls -lah  /wwwroot/ci-cd/current   
-          echo rm -Rf /wwwroot/ci-cd/current
+          echo "rm -Rf /wwwroot/ci-cd/current"
 
       - name: Change Release - create symbolic link
         shell: bash
