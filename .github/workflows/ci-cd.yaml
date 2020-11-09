@@ -26,10 +26,4 @@ jobs:
         
       - name: Create release
         shell: bash
-        run: |
-            mkdir -p /wwwroot/ci-cd/releases/
-            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
-            pwd
-            whoami
-            bash -x /home/deploy/deploy.sh
-            
+        run: bash -x /home/deploy/deploy.sh
