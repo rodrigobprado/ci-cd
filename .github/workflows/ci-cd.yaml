@@ -23,13 +23,13 @@ jobs:
           ssh-key: ' ${{ secrets.SSH_KEY }}'       
 
       - name: Get current date
-        run: echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
-
+        run: echo "::set-output name=date::$(date '+%Y%m%d%H%M')"
+        
       - name: Create release
         shell: bash
         run: |
             mkdir -p /wwwroot/ci-cd/releases/
-            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
+            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${{steps.date.outputs.date}} 
 
       - name: Change Release - ls current
         shell: bash
