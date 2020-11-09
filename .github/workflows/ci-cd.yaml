@@ -34,7 +34,12 @@ jobs:
       - name: Change Release - Remove current
         shell: bash
         run: |
-            rm /wwwroot/ci-cd/current
+          echo "current"
+          ls -lah /wwwroot/ci-cd/current
+          echo "ci-cd"
+          ls -lah /wwwroot/ci-cd/
+          echo "remove"
+          rm /wwwroot/ci-cd/current
 
       - name: Change Release - create symbolic link
         shell: bash
