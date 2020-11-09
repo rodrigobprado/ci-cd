@@ -33,4 +33,4 @@ jobs:
       - name: Change Release - create symbolic link
         run: |
           pwd
-          bash -x /home/deploy/deploy.sh       
+          ls -lah
