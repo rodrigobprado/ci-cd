@@ -29,8 +29,6 @@ jobs:
         shell: bash
         run: |
             mkdir -p /wwwroot/ci-cd/releases/
-            cd /wwwroot/ci-cd/ci-cd/
-            ls -lah 
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
 
       - name: Change Release
