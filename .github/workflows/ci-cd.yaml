@@ -34,7 +34,7 @@ jobs:
       - name: Create release - move dir
         shell: bash
         run: |
-            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${{VERSION}}
+            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${VERSION}
       
       - name: Change Release - Remove current
         shell: bash
@@ -44,5 +44,5 @@ jobs:
       - name: Change Release - create symbolic link
         shell: bash
         run: |
-            ln -s /wwwroot/ci-cd/releases/${{VERSION}} /wwwroot/ci-cd/current
+            ln -s /wwwroot/ci-cd/releases/${VERSION} /wwwroot/ci-cd/current
 
