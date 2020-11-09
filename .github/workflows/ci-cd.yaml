@@ -30,6 +30,11 @@ jobs:
             mkdir -p /wwwroot/ci-cd/releases/
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
 
+      - name: Change Release - ls
+        shell: bash
+        run: |
+          ls -lah  /wwwroot/ci-cd/current   
+
       - name: Change Release - Remove current
         shell: bash
         run: |
