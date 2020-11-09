@@ -36,11 +36,6 @@ jobs:
         run: |
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${VERSION}
       
-      - name: Change Release - Remove current
-        shell: bash
-        run: |          
-          sudo rm -Rf /wwwroot/ci-cd/current
-
       - name: Change Release - create symbolic link
         shell: bash
         run: |
