@@ -18,14 +18,10 @@ jobs:
     name: deploy no server remoto
     runs-on: [self-hosted, linux]
     steps:
-      - name: quem sou
-        run: |
-          whoami
-          pwd
-          ls -lah
       - uses: actions/checkout@v2.3.4
         with:
           ssh-key: ' ${{ secrets.SSH_KEY }}'       
+
       - name: Get current date
         run: echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
 
