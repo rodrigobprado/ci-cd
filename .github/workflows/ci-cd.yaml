@@ -31,7 +31,7 @@ jobs:
             mkdir -p /wwwroot/ci-cd/releases/
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
 
-      - name: Change Release - Remove current
+      - name: Change Release - ls current
         shell: bash
         run: |
           echo "current"
@@ -39,6 +39,10 @@ jobs:
           echo "ci-cd"
           ls -lah /wwwroot/ci-cd/
           echo "remove"
+      
+      - name: Change Release - Remove current
+        shell: bash
+        run: |          
           rm /wwwroot/ci-cd/current
 
       - name: Change Release - create symbolic link
