@@ -12,7 +12,6 @@ on:
       - master
       - main
       - develop
-
 jobs:
   deploy:
     name: deploy no server remoto
@@ -23,18 +22,20 @@ jobs:
           ssh-key: ' ${{ secrets.SSH_KEY }}'       
 
       - name: Get current date
-        run: |
-          echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"          
-
-      - name: Create directory
+        run: echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
+        env:
+          VERSION: ${{ VERSION }}
+        
+      - name: Create release
         shell: bash
         run: |
-            mkdir -p /wwwroot/ci-cd/releases/ 
+            mkdir -p /wwwroot/ci-cd/releases/
+            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
 
-      - name: Create release - move dir
+      - name: Change Release - Remove current
         shell: bash
-        run: |
-            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${VERSION}
+        run: |          
+          rm /wwwroot/ci-cd/current
       
       - name: Change Release - create symbolic link
         shell: bash
