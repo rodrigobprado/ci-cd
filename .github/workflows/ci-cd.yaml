@@ -32,6 +32,11 @@ jobs:
             cd /wwwroot/ci-cd/ci-cd/
             ls -lah 
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
-            cd /wwwroot/ci-cd/releases/$VERSION
+
+      - name: Change Release
+        shell: bash
+        run: |
+            rm /wwwroot/ci-cd/current
+            ln -s /wwwroot/ci-cd/releases/$VERSION /wwwroot/ci-cd/current
 
 
