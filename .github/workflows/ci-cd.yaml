@@ -27,28 +27,23 @@ jobs:
           echo "::set-output name=VERSION::$(date '+%Y%m%d%H%M')"
           echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"          
 
-      - name: Change Release - ls ci-cd
-        shell: bash
-        run: |          
-          echo "ci-cd"
-          echo "$VERSION"
-          ls -lah /wwwroot/ci-cd/
-          echo "remove"
-                  
-      - name: Create release
+      - name: Create directory
         shell: bash
         run: |
-            mkdir -p /wwwroot/ci-cd/releases/
+            mkdir -p /wwwroot/ci-cd/releases/ 
+
+      - name: Create release - move dir
+        shell: bash
+        run: |
             mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/$VERSION
       
       - name: Change Release - Remove current
         shell: bash
         run: |          
-          rm /wwwroot/ci-cd/current || echo "sem current"
+          rm /wwwroot/ci-cd/current
 
       - name: Change Release - create symbolic link
         shell: bash
         run: |
             ln -s /wwwroot/ci-cd/releases/$VERSION /wwwroot/ci-cd/current
-            ls -lah /wwwroot/ci-cd/
 
