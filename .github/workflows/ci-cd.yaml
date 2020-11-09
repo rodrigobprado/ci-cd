@@ -32,8 +32,7 @@ jobs:
 
       - name: Change Release - ls
         shell: bash
-        run: |
-          ls -lah  /wwwroot/ci-cd/current   
+        run: ls -lah  /wwwroot/ci-cd/current   
 
       - name: Change Release - Remove current
         shell: bash
