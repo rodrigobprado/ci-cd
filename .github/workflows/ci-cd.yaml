@@ -28,12 +28,8 @@ jobs:
       - name: Create release
         shell: bash
         run: |
-            mkdir -p releases/$VERSION
-            cd releases/$VERSION
-            pwd
+            mkdir -p /wwwroot/ci-cd/releases/$VERSION
+            mv /wwwroot/ci-cd/ci-cd /wwwroot/ci-cd/releases/$VERSION
+            cd /wwwroot/ci-cd/releases/$VERSION
+            echo $GITHUB_WORKSPACE 
 
-      - name: Download source code
-        run: |
-          cd $GITHUB_WORKSPACE 
-          rm ./current
-          ln -s releases/$VERSION ./current
