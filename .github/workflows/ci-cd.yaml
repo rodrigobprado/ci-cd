@@ -39,4 +39,4 @@ jobs:
       - name: Change Release - create symbolic link
         shell: bash
         run: |
-            echo ln -s /wwwroot/ci-cd/releases/${VERSION} /wwwroot/ci-cd/current
+            echo ln -s /wwwroot/ci-cd/releases/${VERSION} /wwwroot/ci-cd/current 
