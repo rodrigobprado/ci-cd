@@ -32,4 +32,5 @@ jobs:
 
       - name: Change Release - create symbolic link
         shell: bash
-        run: ln -s /wwwroot/ci-cd/releases/${VERSION} /wwwroot/ci-cd/current 
+        run: bash -x /home/deploy/deploy.sh
+        
