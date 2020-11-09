@@ -23,8 +23,9 @@ jobs:
           ssh-key: ' ${{ secrets.SSH_KEY }}'       
 
       - name: Get current date
-        run: echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
-        run: echo "::set-output name=VERSION_2::$(date '+%Y%m%d%H%M')"
+        run: |
+          echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
+          echo "::set-output name=VERSION_2::$(date '+%Y%m%d%H%M')"
         
       - name: Create release
         shell: bash
@@ -42,6 +43,7 @@ jobs:
         shell: bash
         run: |          
           echo "ci-cd"
+          echo "$VERSION_2"
           ls -lah /wwwroot/ci-cd/
           echo "remove"
       
