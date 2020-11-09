@@ -23,13 +23,15 @@ jobs:
           ssh-key: ' ${{ secrets.SSH_KEY }}'       
 
       - name: Get current date
-        run: echo "::set-output name=date::$(date '+%Y%m%d%H%M')"
+        run: VERSION=$(date '+%Y%m%d%H%M')
+        env:
+          VERSION: ${{VERSION}}
         
       - name: Create release
         shell: bash
         run: |
             mkdir -p /wwwroot/ci-cd/releases/
-            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${{steps.date.outputs.date}} 
+            mv /wwwroot/ci-cd/ci-cd/ /wwwroot/ci-cd/releases/${{VERSION}}
 
       - name: Change Release - ls current
         shell: bash
@@ -48,6 +50,6 @@ jobs:
       - name: Change Release - create symbolic link
         shell: bash
         run: |
-            ln -s /wwwroot/ci-cd/releases/$VERSION /wwwroot/ci-cd/current
+            ln -s /wwwroot/ci-cd/releases/${{VERSION}} /wwwroot/ci-cd/current
             ls -lah /wwwroot/ci-cd/
 
