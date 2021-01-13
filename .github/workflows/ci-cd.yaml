@@ -19,7 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
         with:
-          ssh-key: ' ${{ secrets.SSH_KEY }}'       
+          ssh-key: ' ${{ secrets.SSH_KEY }}'    
+
+      - name: Get date
+        run: |
+          echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: Echo env date
+        run: |
+          echo "${{ env.current_date }}"
 
       - name: Branch name
         run: echo running on branch $${{ github.head_ref }}
