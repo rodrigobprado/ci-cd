@@ -40,9 +40,6 @@ jobs:
             echo "process.env.GITHUB_REF.split('/')[2]"
             echo "process.env.GITHUB_EVENT_NAME"
 
-      - name: Get current date
-        run: echo "::set-env name=VERSION::$(date '+%Y%m%d%H%M')"
-
       - name: Extract branch name
         shell: bash
         run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
