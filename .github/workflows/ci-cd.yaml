@@ -26,7 +26,9 @@ jobs:
           echo "${{ env.current_date }}"
 
       - name: pegar a branch
-        run: echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+        run: |
+          echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+          echo "branch_name=${GITHUB_REF#refs/heads/}"
 
       - name: Branch name
         run: echo running on branch $${{ github.head_ref }}
