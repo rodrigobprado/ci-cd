@@ -33,4 +33,8 @@ jobs:
 
       - name: Create release
         shell: bash
-        run: bash -x /home/deploy/deploy.sh
+        run: bash -x /home/deploy/deploy.sh $BRANCH_NAME
+
+      - name: Create release teste
+        shell: bash
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/}
