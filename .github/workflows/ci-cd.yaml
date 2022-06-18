@@ -21,14 +21,14 @@ jobs:
         shell: bash
         run: |
               echo "WORKDIR=$(pwd)" >> $GITHUB_ENV
-              echo "o workdir é => "${{ env.WORKDIR }}" "
+              echo "o workdir é => ${{ env.WORKDIR }} "
   limpa-release:
     needs: diretorio-de-trabalho
     name: limpa as releases anteriores
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: echo "rm -Rf echo "${{ env.WORKDIR }}"
+        run: echo "rm -Rf echo ${{ env.WORKDIR }}"
   data-atual:
     needs: limpa-release
     name: pega a data do deploy
