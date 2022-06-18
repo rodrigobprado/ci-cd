@@ -14,7 +14,6 @@ on:
       - develop
 jobs:
   limpa-release:
-    needs: diretorio-de-trabalho
     name: limpa as releases anteriores
     runs-on: [self-hosted, linux]
     steps:
