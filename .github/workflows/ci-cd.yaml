@@ -13,6 +13,12 @@ on:
       - main
       - develop
 jobs:
+  onde-estou:
+    name: onde estou no server remoto
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: diretorio
+        run: pwd && whoami
   data-atual:
     name: pega a data do deploy
     runs-on: [self-hosted, linux]
