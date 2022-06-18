@@ -24,7 +24,7 @@ jobs:
               echo "o workdir é => $WORKDIR"
               echo $WORKDIR >> $GITHUB_ENV
   limpa-release:
-    need: diretorio-de-trabalho
+    needs: diretorio-de-trabalho
     name: limpa as releases anteriores
     runs-on: [self-hosted, linux]
     steps:
