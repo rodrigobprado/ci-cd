@@ -13,15 +13,8 @@ on:
       - main
       - develop
 jobs:
-  clone:
-    name: clone do reposiorio
-    runs-on: [self-hosted, linux]    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3    
-        
-  deploy:
-    name: deploy no server remoto
+  data-atual:
+    name: pega a data do deploy
     runs-on: [self-hosted, linux]
     steps:
       - name: Get date
@@ -31,11 +24,19 @@ jobs:
         run: |
           echo "${{ env.current_date }}"
 
-#      - name: pegar a branch
-#        run: |
-#          echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
-#          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}"
-#          echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+  clone:
+    needs: data-atual  
+    name: clone do reposiorio
+    runs-on: [self-hosted, linux]    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3    
+        
+  deploy:
+    needs: clone
+    name: deploy no server remoto
+    runs-on: [self-hosted, linux]
+    steps:
         
       - name: Create release teste
         shell: bash
