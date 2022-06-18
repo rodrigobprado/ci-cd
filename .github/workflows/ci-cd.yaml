@@ -13,13 +13,14 @@ on:
       - main
       - develop
 jobs:
-  onde-estou:
-    name: onde estou no server remoto
+  limpa-release:
+    name: limpa as releases anteriores
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: pwd && whoami
+        run: cd .. && rm -Rf *
   data-atual:
+    needs: limpa-release
     name: pega a data do deploy
     runs-on: [self-hosted, linux]
     steps:
