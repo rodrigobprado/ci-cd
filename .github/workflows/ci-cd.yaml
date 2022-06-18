@@ -20,7 +20,7 @@ jobs:
       - name: diretorio
         shell: bash
         run: |
-              export WORKDIR=$(pwd)
+              echo "WORKDIR=$(pwd)" >> $GITHUB_ENV
               echo "o workdir é => $WORKDIR"
   limpa-release:
     needs: diretorio-de-trabalho
@@ -28,7 +28,7 @@ jobs:
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: echo "rm -Rf $WORKDIR"
+        run: echo "rm -Rf echo "${{ env.WORKDIR }}"
   data-atual:
     needs: limpa-release
     name: pega a data do deploy
