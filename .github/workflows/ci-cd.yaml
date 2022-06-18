@@ -41,3 +41,23 @@ jobs:
       - name: Create release teste
         shell: bash
         run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/}
+  
+  muda-versao:
+    needs: deploy
+    name: muda a versao do sistema no servidor
+    runs-on: [self-hosted, linux]
+    steps:
+        
+      - name: Create release teste
+        shell: bash
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/}
+
+  reiniciando-servicos:
+    needs: muda-versao
+    name: reinicia os serviços do servidor
+    runs-on: [self-hosted, linux]
+    steps:
+        
+      - name: Reincia servicos
+        shell: bash
+        run: systemctl status cron
