@@ -13,24 +13,13 @@ on:
       - main
       - develop
 jobs:
-  diretorio-de-trabalho:
-    name: confere o diretório de trabalho
-    runs-on: [self-hosted, linux]
-    steps:
-      - name: diretorio
-        shell: bash
-        run: |
-              echo "WORK_DIR=$(pwd)" >> $GITHUB_ENV
-              echo "WORK_DIR=$(pwd)" >> ${{ env.WORK_DIR }}
-              echo "o workdir é => ${{ env.WORK_DIR }} "
-              echo "o workdir é => $GITHUB_ENV"              
   limpa-release:
     needs: diretorio-de-trabalho
     name: limpa as releases anteriores
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: echo "rm -Rf echo ${{ env.WORK_DIR }}"
+        run: rm -rf "${{ github.workspace }}"
   data-atual:
     needs: limpa-release
     name: pega a data do deploy
