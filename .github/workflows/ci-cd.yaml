@@ -20,7 +20,7 @@ jobs:
       - name: diretorio
         shell: bash
         run: |
-              WORKDIR=$(pwd)
+              export WORKDIR=$(pwd)
               echo "o workdir é => $WORKDIR"
   limpa-release:
     needs: diretorio-de-trabalho
@@ -28,7 +28,7 @@ jobs:
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: echo $WORKDIR
+        run: echo "rm -Rf $WORKDIR"
   data-atual:
     needs: limpa-release
     name: pega a data do deploy
