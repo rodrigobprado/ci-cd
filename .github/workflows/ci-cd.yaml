@@ -21,6 +21,7 @@ jobs:
         shell: bash
         run: |
               echo "WORK_DIR=$(pwd)" >> $GITHUB_ENV
+              echo "WORK_DIR=$(pwd)" >> ${{ env.WORK_DIR }}
               echo "o workdir é => ${{ env.WORK_DIR }} "          
   limpa-release:
     needs: diretorio-de-trabalho
