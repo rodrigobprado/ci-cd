@@ -13,12 +13,23 @@ on:
       - main
       - develop
 jobs:
+  diretorio-de-trabalho:
+    name: confere o diretório de trabalho
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: diretorio
+        shell: bash
+        run: |
+              WORKDIR=$(pwd)
+              echo "o workdir é => $WORKDIR"
+              echo $WORKDIR >> $GITHUB_ENV
   limpa-release:
+    need: diretorio-de-trabalho
     name: limpa as releases anteriores
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: pwd &?& cd .. && rm -Rf *
+        run: echo $WORKDIR
   data-atual:
     needs: limpa-release
     name: pega a data do deploy
