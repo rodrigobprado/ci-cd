@@ -20,8 +20,8 @@ jobs:
       - name: diretorio
         shell: bash
         run: |
-              echo "WORKDIR=$(pwd)" >> $GITHUB_ENV
-              echo "o workdir é => ${{ env.WORKDIR }} "
+              echo "WORK_DIR=$(pwd)" >> $GITHUB_ENV
+              echo "o workdir é => ${{ env.WORKDIR }} "          
   limpa-release:
     needs: diretorio-de-trabalho
     name: limpa as releases anteriores
@@ -37,10 +37,6 @@ jobs:
       - name: Get date
         run: |
           echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-      - name: Echo env date
-        run: |
-          echo "${{ env.current_date }}"
-
   clone:
     needs: data-atual  
     name: clone do reposiorio
