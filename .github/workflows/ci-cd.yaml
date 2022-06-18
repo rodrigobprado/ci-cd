@@ -30,7 +30,10 @@ jobs:
           echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
           echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}"
           echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
+          
+      - name: Checkout
+        uses: actions/checkout@v3
+        
       - name: Create release
         shell: bash
         run: bash -x /home/deploy/deploy.sh $BRANCH_NAME
