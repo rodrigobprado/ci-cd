@@ -44,7 +44,7 @@ jobs:
     steps:
       - name: Create release teste
         shell: bash
-        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/}
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} $GITHUB_RUN_NUMBER
   
   muda-versao:
     needs: deploy
@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: Cria a release do deploy
         shell: bash
-        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} ${{ github.event.repository.name }}
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} ${{ github.event.repository.name }} $GITHUB_RUN_NUMBER
 
   reiniciando-servicos:
     needs: muda-versao
