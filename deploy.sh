@@ -3,7 +3,7 @@ BRANCH=$1
 DIR_SOURCE=$2
 SITE=$3
 RELEASE=$4
-BASE_DIR="/wwwroot/sites/"
+BASE_DIR="/wwwroot/sites"
 
 #RELEASE=$(date +%Y-%m-%d-%H-%M-%S)
 #NEW_RELEASE="$BASE_DIR/$SITE/$BRANCH/$RELEASE"
