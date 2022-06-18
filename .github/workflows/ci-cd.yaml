@@ -18,7 +18,8 @@ jobs:
     runs-on: [self-hosted, linux]
     steps:
       - name: diretorio
-        run: rm -rf "${{ github.workspace }}"
+        run: rm -Rf "${{ github.workspace }}"
+
   data-atual:
     needs: limpa-release
     name: pega a data do deploy
@@ -27,20 +28,20 @@ jobs:
       - name: Get date
         run: |
           echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
   clone:
     needs: data-atual  
-    name: clone do reposiorio
+    name: clonando o repositório atual para a realização do deploy
     runs-on: [self-hosted, linux]    
     steps:
       - name: Checkout
         uses: actions/checkout@v3    
-        
+
   deploy:
     needs: clone
-    name: deploy no server remoto
+    name: efetuando o processo de deploy no servidor remoto
     runs-on: [self-hosted, linux]
     steps:
-        
       - name: Create release teste
         shell: bash
         run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/}
@@ -50,17 +51,15 @@ jobs:
     name: muda a versao do sistema no servidor
     runs-on: [self-hosted, linux]
     steps:
-        
-      - name: Create release teste
+      - name: Cria a release do deploy
         shell: bash
-        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/}
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }}
 
   reiniciando-servicos:
     needs: muda-versao
     name: reinicia os serviços do servidor
     runs-on: [self-hosted, linux]
     steps:
-        
       - name: Reincia servicos
         shell: bash
         run: systemctl status cron
