@@ -7,6 +7,8 @@ RETENTION=$5
 BASE_DIR="/wwwroot/sites"
 BASE_DELETE="$BASE_DIR/$SITE/$BRANCH/releases/"
 
+echo "o for ficara assim => for i in $(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}'); do "
+
 for i in $(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}'); do
   echo "Removendo $i"
   rm -Rf $BASE_DELETE$i
