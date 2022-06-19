@@ -75,4 +75,4 @@ jobs:
     steps:
       - name: Reincia servicos
         shell: bash
-        run: systemctl status cron
+        run: /home/deploy/script_teste.sh
