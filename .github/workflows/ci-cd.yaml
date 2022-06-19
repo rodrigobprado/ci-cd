@@ -64,6 +64,7 @@ jobs:
       - name: Cria a release do deploy
         shell: bash
         run: |
+              mkdir -p /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/
               rm /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current
               ln -s /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current
 
