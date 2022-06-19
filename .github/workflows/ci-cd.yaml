@@ -45,6 +45,7 @@ jobs:
       - name: Pega a versão nova do deploy
         shell: bash
         run: |
+               if [ ! -f /home/deploy/deploy.sh  ]; then touch /home/deploy/deploy.sh ; fi
                rm /home/deploy/deploy.sh 
                cp ${{ github.workspace }}/deploy.sh /home/deploy/deploy.sh 
   deploy:
