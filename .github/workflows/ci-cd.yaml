@@ -65,7 +65,7 @@ jobs:
         shell: bash
         run: |
               echo "rm /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current"
-              echo "cp ln -s /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER "
+              echo "cp ln -s /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current"
 
   reiniciando-servicos:
     needs: muda-versao
