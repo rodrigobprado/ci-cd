@@ -35,16 +35,26 @@ jobs:
     runs-on: [self-hosted, linux]    
     steps:
       - name: Checkout
-        uses: actions/checkout@v3    
+        uses: actions/checkout@v3
 
-  deploy:
+  atualiza-deploy:
     needs: clone
+    name: atualiza o processo de deploy ANTES do deploy
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Pega a versão nova do deploy
+        shell: bash
+        run: |
+               rm /home/deploy/deploy.sh 
+               cp ${{ github.workspace }}/deploy.sh /home/deploy/deploy.sh 
+  deploy:
+    needs: atualiza-deploy
     name: efetuando o processo de deploy no servidor remoto
     runs-on: [self-hosted, linux]
     steps:
-      - name: Create release teste
+      - name: efetuando o processo de deploy no servidor remoto
         shell: bash
-        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} $GITHUB_RUN_NUMBER
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} ${{ github.event.repository.name }} $GITHUB_RUN_NUMBER
   
   muda-versao:
     needs: deploy
@@ -53,7 +63,9 @@ jobs:
     steps:
       - name: Cria a release do deploy
         shell: bash
-        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} ${{ github.event.repository.name }} $GITHUB_RUN_NUMBER
+        run: |
+              echo "rm /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current"
+              echo "cp ln -s /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER "
 
   reiniciando-servicos:
     needs: muda-versao
