@@ -17,7 +17,11 @@ echo "o release tem $RELEASE"
 echo "a retenção tem $RETENTION"
 echo "a saida do filtrado do ls fica => $(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}')"
 echo " "
-echo "o for ficara assim => for i in $(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}'); do "
+echo "o for ficara assim => for i in $(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}') "
+TESTE=$(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}')
+echo ""
+echo "aqui vai o teste"
+echo "$TESTE"
 
 for i in $(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {print ;}'); do
   echo "Removendo $i"
