@@ -84,7 +84,7 @@ jobs:
     runs-on: [self-hosted, linux]
     steps:
       - name: remove as versões antigas dos releases do servidor
-        shell: bash
+        shell: bash -x
         run: |
               pwd
               for i in $(ls /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/ | sort -n |  awk '$1 < ( $GITHUB_RUN_NUMBER - 5) {print ;}'); do rm -Rf /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$i; done
