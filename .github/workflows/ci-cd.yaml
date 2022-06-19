@@ -64,8 +64,8 @@ jobs:
       - name: Cria a release do deploy
         shell: bash
         run: |
-              echo "rm /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current"
-              echo "cp ln -s /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current"
+              rm /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current
+              ln -s /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current
 
   reiniciando-servicos:
     needs: muda-versao
