@@ -87,5 +87,5 @@ jobs:
       - name: remove as versões antigas dos releases do servidor
         shell: bash
         run: |
-              bash -x /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current/clean_releases.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} ${{ github.event.repository.name }} $GITHUB_RUN_NUMBER 5
+              bash /wwwroot/sites/${{ github.event.repository.name }}/${GITHUB_REF#refs/heads/}/current/clean_releases.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} ${{ github.event.repository.name }} $GITHUB_RUN_NUMBER 5
 
