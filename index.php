@@ -1,4 +1,5 @@
 <?php
   phpinfo();
-  echo "deu"
+  echo "deu";
+  echo "mais codigo";
 ?>
