@@ -27,3 +27,5 @@ for i in `$(ls $BASE_DELETE | sort -n |  awk '$1 < ($RELEASE - $RETENTION) {prin
   echo "Removendo $i"
   rm -Rf $BASE_DELETE$i
 done
+
+echo "fim "
