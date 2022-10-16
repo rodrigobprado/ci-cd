@@ -1,0 +1,82 @@
+name: CI-CD site3
+
+on:
+  workflow_run:
+    workflows: ["CI-CD test"]
+    branches: [main]
+    types:
+      - completed
+jobs:
+  limpa-release:
+    name: limpa as releases anteriores
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: diretorio
+        run: rm -Rf "${{ github.workspace }}"
+
+  data-atual:
+    needs: limpa-release
+    name: pega a data do deploy
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Get date
+        run: |
+          echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+  clone:
+    needs: data-atual  
+    name: clonando o repositório atual para a realização do deploy
+    runs-on: [self-hosted, linux]    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+  atualiza-deploy:
+    needs: clone
+    name: atualiza o processo de deploy ANTES do deploy
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Pega a versão nova do deploy
+        shell: bash
+        run: |
+               if [ ! -f /home/deploy/deploy.sh  ]; then touch /home/deploy/deploy.sh ; fi
+               rm /home/deploy/deploy.sh 
+               cp ${{ github.workspace }}/deploy.sh /home/deploy/deploy.sh 
+  deploy:
+    needs: atualiza-deploy
+    name: efetuando o processo de deploy no servidor remoto
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: efetuando o processo de deploy no servidor remoto
+        shell: bash
+        run: bash -x /home/deploy/deploy.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} site3 $GITHUB_RUN_NUMBER
+  
+  muda-versao:
+    needs: deploy
+    name: muda a versao do sistema no servidor
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Cria a release do deploy
+        shell: bash
+        run: |
+              mkdir -p /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/releases/
+              if [ ! -f /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/current ]; then touch /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/current; fi
+              rm /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/current
+              ln -s /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/releases/$GITHUB_RUN_NUMBER /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/current
+  reiniciando-servicos:
+    needs: muda-versao
+    name: reinicia os serviços do servidor
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Reincia servicos
+        shell: bash
+        run: /home/deploy/script_teste.sh
+  
+  limpa-versao:
+    needs: muda-versao
+    name: remove as versões antigas do servidor
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: remove as versões antigas dos releases do servidor
+        shell: bash
+        run: |
+              bash -x /wwwroot/sites/site3/${GITHUB_REF#refs/heads/}/current/clean_releases.sh ${GITHUB_REF#refs/heads/} ${{ github.workspace }} site3 $GITHUB_RUN_NUMBER 5 | tee > ~/saida.log
